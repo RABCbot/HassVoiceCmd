@@ -5,9 +5,9 @@ This is an Universal Windows Platform (UWP) application that bootstraps <a href=
 
 ##Requirements
 
-This application was built with Microsoft Visual Studio 2015 Community Edition (https://www.visualstudio.com/vs/community)<br>
-Using Template10 (https://github.com/Windows-XAML/Template10)
-It requires Newtonsoft.Json (http://www.newtonsoft.com/json">http://www.newtonsoft.com/json)
+This application was built with Microsoft Visual Studio 2015 Community Edition [Visual Studio 2015](https://www.visualstudio.com/vs/community)<br>
+Using Template10 [Template10](https://github.com/Windows-XAML/Template10)
+It requires Newtonsoft.Json [Newtonsoft.Json](http://www.newtonsoft.com/json">http://www.newtonsoft.com/json)
 
 ##How it works
 
