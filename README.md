@@ -11,9 +11,9 @@ It requires Newtonsoft.Json [Newtonsoft.Json](http://www.newtonsoft.com/json">ht
 
 ##How it works
 
-You can run the application within Visual Studio, after launched.<br>
-Click Settings, enter your Home-assistant web address, a prefix for cortana and entities you want filtered out.<br>
+You can run the application within Visual Studio
+After launched. Click Settings, enter your Home-assistant web address, a prefix for cortana and the entities you want filtered out.<br>
 Click Home.<br>
-After bootstraping, it display a list of all the available commands.
+After bootstrap completes, it display a list of all the available commands.
 To call a command, just speak the prefix together with the phrase as shown in the UI.<br>
-For example: "Please turn on the garage light".
+For example: "Hey Cortana, Please turn on the garage light".
