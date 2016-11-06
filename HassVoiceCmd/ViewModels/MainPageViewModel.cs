@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Windows.Storage;
 using Windows.ApplicationModel.VoiceCommands;
+using System.Text;
 
 namespace HassVoiceCmd.ViewModels
 {
@@ -63,6 +64,11 @@ namespace HassVoiceCmd.ViewModels
             }
         }
 
+        private class Utf8StringWriter : StringWriter
+        {
+            public override Encoding Encoding => Encoding.UTF8;
+        }
+
         private async void InstallVoiceCommands(List<VoiceCommand> lst)
         {
             VoiceCommands vcd = new VoiceCommands();
@@ -83,12 +89,16 @@ namespace HassVoiceCmd.ViewModels
 
             // Serialize to xml 
             XmlSerializer ser = new XmlSerializer(typeof(VoiceCommands));
-            StringWriter writer = new StringWriter();
-            ser.Serialize(writer, vcd);
-            string xml = writer.ToString();
+            string xml;
+            //StringWriter writer = new StringWriter();
+            using (StringWriter writer = new Utf8StringWriter())
+            {
+                ser.Serialize(writer, vcd);
+                xml = writer.ToString();
+            }
+            //xml = xml.Replace("utf-16", "utf-8");
             xml = xml.Replace("xsi:nil=\"true\"", string.Empty);
-            xml = xml.Replace("utf-16", "utf-8");
-
+            
             // save XML in a Temp file
             StorageFolder tempFolder = ApplicationData.Current.TemporaryFolder;
             StorageFile vcdFile = await tempFolder.CreateFileAsync(@"VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
