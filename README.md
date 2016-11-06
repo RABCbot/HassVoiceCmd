@@ -1,11 +1,13 @@
 ##HassVoiceCmd
 
 This is an Universal Windows Platform (UWP) application that bootstraps <a href="http://Home-Assistant.io">http://Home-Assistant.io</a> and registers each service/entity as custom Cortana commands.
+(HassVoiceCmd-Screen.png)
 
 ##Requirements
 
-This application was built with Microsoft Visual Studio 2015 Community Edition <a href="https://www.visualstudio.com/vs/community/">https://www.visualstudio.com/vs/community/</a>.<br>
-It requires Newtonsoft.Json <a href="http://www.newtonsoft.com/json">http://www.newtonsoft.com/json</a>
+This application was built with Microsoft Visual Studio 2015 Community Edition (https://www.visualstudio.com/vs/community)<br>
+Using Template10 (https://github.com/Windows-XAML/Template10)
+It requires Newtonsoft.Json (http://www.newtonsoft.com/json">http://www.newtonsoft.com/json)
 
 ##How it works
 
