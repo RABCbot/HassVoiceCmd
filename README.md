@@ -1,6 +1,6 @@
 ##HassVoiceCmd
 
-This is an Universal Windows Platform (UWP) application that bootstraps <a href="http://Home-Assistant.io">http://Home-Assistant.io</a> and registers each service/entity as custom Cortana commands.
+This is an Universal Windows Platform (UWP) application that bootstraps [Home-Assistant](http://Home-Assistant.io">http://Home-Assistant.io) and registers each service/entity as custom Cortana commands.
 ![Screen](HassVoiceCmd-Screen.png)
 
 ##Requirements
