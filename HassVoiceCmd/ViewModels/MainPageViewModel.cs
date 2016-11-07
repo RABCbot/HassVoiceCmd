@@ -23,8 +23,8 @@ namespace HassVoiceCmd.ViewModels
         private bool _bootstrapped;
         public bool Bootstrapped { get { return _bootstrapped; } set { _bootstrapped = value; base.RaisePropertyChanged(); } }
 
-        private string _ricardo;
-        public string ricardo { get { return _ricardo; } set { _ricardo = value; base.RaisePropertyChanged(); } }
+        private string _statusMessage;
+        public string StatusMessage { get { return _statusMessage; } set { _statusMessage = value; base.RaisePropertyChanged(); } }
 
         public MainPageViewModel()
         {
@@ -36,7 +36,8 @@ namespace HassVoiceCmd.ViewModels
         {
             try
             {
-                ricardo = "Bootstrap started...";
+                StatusMessage = "Bootstrap started...";
+                VoiceCmdList = null;
                 Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 if (localSettings.Values.ContainsKey("WebAddress"))
                 {
@@ -53,14 +54,21 @@ namespace HassVoiceCmd.ViewModels
 
                     VoiceCmdList = hass.GetCommandList(uri, filter);
                     if (VoiceCmdList.Count < 100)
+                    {
                         InstallVoiceCommands(VoiceCmdList);
-                    ricardo = String.Format("Bootstrap succeeded");
-                    Bootstrapped = true;
+                        StatusMessage = String.Format("Bootstrap succeeded");
+                        Bootstrapped = true;
+                    }
+                    else
+                    {
+                        StatusMessage = String.Format("Too many commands ({0}), use entity filter to reduce amount", VoiceCmdList.Count.ToString());
+                        Bootstrapped = true;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ricardo = "Bootstrap failed because: " + ex.Message;
+                StatusMessage = "Bootstrap failed because: " + ex.Message;
             }
         }
 
@@ -113,7 +121,7 @@ namespace HassVoiceCmd.ViewModels
             get { return null; }
             set
             {
-                ricardo = "Service call started...";
+                StatusMessage = "Service call started...";
                 VoiceCommand vc = _VoiceCmdList[Int32.Parse(value.ToString())];
                 try
                 {
@@ -131,18 +139,18 @@ namespace HassVoiceCmd.ViewModels
                         //await voiceServiceConnection.ReportSuccessAsync(response);
                     }
                     */
-                    ricardo = "Service call succeeded";
+                    StatusMessage = "Service call succeeded";
                 }
                 catch (Exception ex)
                 {
-                    ricardo = "Service call failed because: " + ex.Message;
+                    StatusMessage = "Service call failed because: " + ex.Message;
                 }
             }
         }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
-            ricardo = "Ready";
+            StatusMessage = "Ready";
             if (!Bootstrapped)
             {
                 await BootstrapHass();
@@ -167,11 +175,11 @@ namespace HassVoiceCmd.ViewModels
                             //await voiceServiceConnection.ReportSuccessAsync(response);
                         }
                         */
-                        ricardo = "Service call succeeded";
+                        StatusMessage = "Service call succeeded";
                     }
                     catch (Exception ex)
                     {
-                        ricardo = "Service call failed because: " + ex.Message;
+                        StatusMessage = "Service call failed because: " + ex.Message;
                     }
             }
             await Task.CompletedTask;
