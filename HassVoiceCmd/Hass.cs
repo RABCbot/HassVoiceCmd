@@ -148,12 +148,21 @@ namespace HassVoiceCmd
                 {
                     
                     cmd = new VoiceCommand();
+                    List<string> lst = new List<string>();
                     s = svc + " [the] " + ent.name;
                     s = s.Replace("_", " ");
                     s = s.Replace("-", " ");
                     s = s.ToLower();
                     cmd.Example = s;
-                    cmd.ListenFor = new string[] { s };
+
+                    lst.Add(s);
+                    if (s.Contains("turn on"))
+                    {
+                        s.Replace("turn on", "open");
+                        lst.Add(s);
+                    }
+                    cmd.ListenFor = lst.ToArray();
+
                     cmd.Name = svc + ent.domain + ent.entity;
                     cmd.Domain = ent.domain;
                     cmd.Entity = ent.entity;

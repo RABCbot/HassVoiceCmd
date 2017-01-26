@@ -34,11 +34,13 @@ namespace HassVoiceCmd.ViewModels
 
         public async Task BootstrapHass()
         {
+            Windows.Storage.ApplicationDataContainer localSettings;
+
             try
             {
                 StatusMessage = "Bootstrap started...";
                 VoiceCmdList = null;
-                Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                localSettings = ApplicationData.Current.LocalSettings;
                 if (localSettings.Values.ContainsKey("WebAddress"))
                 {
                     string uri = (string)localSettings.Values["WebAddress"];
