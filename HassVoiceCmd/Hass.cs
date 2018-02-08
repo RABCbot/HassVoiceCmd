@@ -60,9 +60,9 @@ namespace HassVoiceCmd
             return lst;
         }
 
-        private async Task<string> CallApiBootstrapAsync()
+        private async Task<string> CallApiBootstrapAsync(string kind)
         {
-            WebRequest request = WebRequest.Create(new Uri(_uri, "/api/bootstrap"));
+            WebRequest request = WebRequest.Create(new Uri(_uri, kind));
             request.Method = "GET";
             request.ContentType = "application/json";
             WebResponse response = await request.GetResponseAsync();
@@ -77,8 +77,13 @@ namespace HassVoiceCmd
 
         public async Task Bootstrap()
         {
-            string data = await CallApiBootstrapAsync();
-            _bootstrap = (Bootstrap)JsonConvert.DeserializeObject<Bootstrap>(data);
+            string data;
+
+            _bootstrap = new HassVoiceCmd.Bootstrap();
+            data = await CallApiBootstrapAsync("/api/services");
+            _bootstrap.services = (List<Service>)JsonConvert.DeserializeObject<List<Service>>(data);
+            data = await CallApiBootstrapAsync("/api/states");
+            _bootstrap.states = (List<State>)JsonConvert.DeserializeObject<List<State>>(data);
         }
 
         public static async Task<string> CallApiServiceAsync(string url, string domain, string service, string entity)
