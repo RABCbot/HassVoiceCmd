@@ -1,3 +1,5 @@
+DEPRECATED, Microsoft Windows no longer supports this Cortana API
+
 # HassVoiceCmd
 
 This is an Universal Windows Platform (UWP) application that bootstraps [Home-Assistant](http://Home-Assistant.io">http://Home-Assistant.io) and registers each service/entity as custom Cortana commands.<br/>
